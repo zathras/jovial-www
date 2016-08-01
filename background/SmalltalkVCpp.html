@@ -1,0 +1,365 @@
+<HEAD>
+<TITLE>Software Development Environments Analysis</TITLE>
+</HEAD>
+
+<BODY bgcolor="#ffffff">
+<CENTER>
+<H2>Software Development Environments</H2><BR>
+William F. Foote<br>
+December, 1994<br>
+</CENTER>
+
+<blockquote>
+&quot;Of all the monsters that fill the nightmares of our folklore,
+none terrify more than werewolves, because they transform unexpectedly from
+the familiar into horrors.  For these, one seeks bullets of silver that
+can magically lay them to rest.
+<p>
+&quot;The familiar software project (...) has something of this character; it
+is usually innocent and straightforward, but is capable of becoming a
+monster of missed schedules, blown budgets, and flawed products.  So
+we hear desperate cries for a silver bullet - something to make software
+costs drop as rapidly as computer hardware costs do.
+<p>
+&quot;But, as we look to the horizon of a decade hence, we see no silver
+bullet.  There is no single development, in either technology or in
+management technique, that by itself promises even one order-of-magnitude
+improvement in productivity, in reliability, in simplicity.&quot;
+<br>
+<blockquote><cite>-- Frederick P. Brooks (author of 
+&quot;The Mythical Man-Month&quot;)</cite></blockquote>
+</blockquote>
+
+<blockquote>
+&quot;If you have a $5 head, wear a $5 helmet&quot;<br>
+<blockquote><cite>-- Motorcycle Helmet Ad</cite></blockquote>
+</blockquote>
+
+<p>
+The choice of a computer language and/or environment cannot guarantee the
+success or failure of a project.  Many excellent products have been produced
+with awful tools, and many terrible products have been produced with wonderful
+tools.  Software development is a creative, poorly understoood process 
+where the selection of the right people is far more important than tools,
+methodologies, or environments.
+<p>
+That said, selection of appropriate tools for a given task can have a profound
+effect on productivity.  Whereas no tool can be a &quot;silver bullet&quot;
+that automatically produces results, an inappropriate tool can actively
+hinder the software developer in his job.  The process of software development
+is difficult enough without hindrance from inadequate tools!  Conversely,
+appropriate environmental support can be a great help.
+<p>
+In that spirit, I wish to present some of my reflections about tools that
+could possibly be used for upcoming software projects, and where they might
+or might not be appropriate.  Following this analysis, I'll describe some of
+the experience that has lead me to these opinions.
+<p>
+I wish to emphasize this analysis was written with a particular type of
+software in mind:  Specifically, business systems written for the Medical
+industry.  I do <strong>not</strong> think that the conclusions reached in
+this analysis apply to all software development!  Further, this analysis was
+written in December of 1994, and the world changes.  The conclusions reached
+herein may well be dated in short order...  All four languages considered
+are undergoing active development, and limitations that were present as of
+this writing might have been fixed by the time you read this.
+<p>
+In this analysis, I largely ignore the cross-platform implications of various
+choices.  If it were judged important that upcoming products be capable of
+running on more than one platform, that would rule out a large number of 
+tools.  This analysis assumes that products who's client side is limited to
+the various flavors of Microsoft Windows will be adequate.
+
+<h2>VISUAL BASIC</h2>
+<p>
+Visual Basic is a simple, appealing tool for the development of simple
+GUI applications.  It is very easy to learn, and can be productively used by
+someone familiar with basic GUI concepts within about an hour of first using
+it.  It has the further advantage that it is inexpensive, and that
+third-party extensions (basically widget toolkits in the form of
+&quot;VBX&quot; libraries) are readily available.
+<p>
+Visual Basic fills essentially the same role as a 4GL, or a scripting
+language.  It makes it easy to write simple applications.  It is without a 
+doubt an excellent tool for a non-programmer to use to create an empty
+GUI prototype to get an early idea of the look-and-feel of an application
+(in fact, it was used with great success in just this way in a previous
+project at Medicus).  It may also be appropriate for developing a class
+of relatively simple programs, such as programs to maintain an administrative
+database.
+<p>
+There are some problems with the current implementation of Visual 
+Basic.  Visual Basic is a &quot;Win 16&quot; application, and has 
+some limitations that result form that (such as lists that can hold only
+64K of data).  Also, it is basically a naive interpreted (P-code) system,
+which makes it one or two orders of magnitude slower (than C, for example)
+for computationally-intensive operations.  Limitations such as these,
+while serious, are not fundamental to the Visual Basic approach, and I shall
+not explore them here.
+<p>
+A more serious drawback to doing any kind of serious development is the total
+lack of support for dependency management.  The Visual Basic language
+lacks the features necessary to support traditional structured programming,
+much less object-oriented programming.  Following are some of the key
+abstraction mechanisms missing from Visual Basic:
+
+<ul><li>A reference type (pointers provide an unsafe mechanism in C; Lisp,
+    Smalltalk, Eiffel and others have a different, safe reference
+    mechanism).
+<li>Inheritance.
+<li>Polymorphism.
+<li>Information Hiding (C provides limited support for information hiding
+    via module static variables; languages that support object-oriented
+    programming generally provide information hiding in the form of state
+    information that is private to objects).
+</ul>
+
+<p>Given these limitations, it would be extremely difficult to develop
+(much less maintain!) an application of any complexity in which non-trivial
+application logic were expressed in the Visual Basic language.
+<p>
+There is an alternative use of Visual Basic that does not suffer from the
+above disadvantage.  That is to use Visual Basic as a scripting language
+to write the GUI front end of an application, but to write the real application
+logic in some other language, typically C++.  In this scenario, Visual
+Basic would be used for little more than its GUI builder, and perhaps
+implementation of some of the simpler parts of the application.
+<p>
+At first blush, this might seem an attractive notion:  combining Visual
+Basic's ability to rapidly develop applications with the advantages of
+C++.  I believe that this appeal is illuisory, based on the following
+observations:
+
+<ul><li>Visual C++'s GUI builder is very similar to Visual Basic's.  As
+    with other GUI builder/C(++) combinations, once the framework of
+    an application is set up, it is actually quite easy to make changes to
+    the GUI part of a C(++) application.
+<li>Providing the bridge between Visual Basic and C++ objects would be
+    problematic, and would probably saccrifice type safety.  Also, the
+    complexity of doing this sacrifices the &quot;simplicity&quot; that
+    was the initial attraction of Visual Basic.
+<li>Debugging a Visual Basic/C++ hybrid program would present unknown
+    challenges (particularly if a Win16 Visual Basic were being interfaced
+    to a Win32 Visual C++).
+<li>A Visual Basic/C++ hybrid application would have all of the disadvantages
+    of C++, outlined below.
+</ul>
+
+<p>
+To summarize, Visual Basic is a tempting language, because it is simple to
+learn and to use.  It is unsuitable, however, for any serious application
+development, because it does not support good software engineering practices
+(such as modular design, information hiding, and object-oriented
+programming).
+
+<h2>C++</h2>
+<p>
+C++, from a software engineering perspective, is a giant leap beyond
+C.  With proper program design, a project written in C++ stands
+a much better chance of being correct and maintainable.  This is due,
+I believe, largely to the superior encapsulation provided by C++.  One
+can approach a &quot;design by contract&quot; style of programming by
+carefully following a set of conventions and rules within a C++
+program.  Another crucial benefit of C++ is that it supports the
+object-oriented programming paradigm.  It is also a very popular
+language, so compilers and other tools are readily available.
+<p>
+Some of the benefits of C++, however, have been oversold.  C++ largely
+fails to deliver on its promise of being easy to assimilate by C 
+programmers.  Though superficially similar, the kind of appreciation
+of C++'s strengths that it takes to really effectively exploit C++ take
+much longer to absorb.  Learning C++ does not necessarily lead to learning
+object-oriented programming.
+<p>
+Some tool vendors (notably Microsoft) have contributed to the overselling
+of C++.  They seem to be trying to convey the impression that their
+tool can automate much of the task of programming (in Microsoft's case,
+through various &quot;wizards&quot;).  What these tools really do is
+provide a slick veneer over the easiest part of software construction,
+that is, the writing of an empty application skeleton.  These tools are
+valuable and do have their place, but in the &quot;big picture&quot;
+of writing any significant application, their contribution to
+productivity will probably be minimal.
+<p>
+The design of C++ is very much an engineering compromise.  Two of the
+stated goals of the design are &quot;backwards compatibility with
+C code&quot; and &quot;no runtime penalty for language features that
+are not used&quot;.  Further, C++ inherits the strong runtime-efficiency
+bias of C, which makes a great deal of sense for writing operating
+systems, but is of less value for typical business applications.
+<p>
+In part because of some of the compromises made in the design of C++, it
+suffers from some pitfalls, particularly when one tries to implement
+a large system.  Succinctly, C++ applications often don't scale
+well.  Some of the problems that hamper the development of really
+large systems with C++ are:
+<ul>
+<li>Primitive compilation model.  Long compilations are often triggered
+    by small changes, and compilation time tends to increase with the
+    square of program size.
+    This may sound like a trivial point, but experience teaches otherwise.
+    Within my last project, for example, the compilation times had a
+    significant negative impact on productivity.
+<li>Primitive memory model.  In C++, the programmer must explicitly
+    manage the heap, allocating and deallocating memory manually.  This
+    leads to more complex code (because program logic must track ownership
+    of all allocated objects), and to subtle bugs.
+<li>Lack of pointer safety.  Because C++ follows the C tradition of allowing
+    unrestrained use of pointers (including unsafe casts), subtle bugs
+    can easily be introduced.
+<li>Primitive tools.  Environments like Visual C++ are high on polish, but
+    lack some important, basic components (like a really good class
+    browser, or important debugging features).
+<li>Lack of standard class libraries.  The development of standard class
+    libraries has been hampered by the evolving nature of the language
+    and differences in compiler implementation.  Many of the class
+    libraries that do exist are of poor quality, or are hobbled
+    by the constraints of earlier compiler implementations (MFC's failure
+    to use templates for many of its container types is one example of
+    such a limitation).
+<li>Lack of a clean seperation between interface and implementation.  (This
+    is more of an annoyance than a crippling limitation, but I think that
+    it's worth including here).
+<li>Excessive complexity.  Some of this complexity is due to the fact that
+    C++ forces the programmer to deal with issues that could be automated
+    (such a virtual vs. non-virtual member functions, and value vs.
+    reference variables).
+</ul>
+<p>
+In summary, C++ is an important, popular language that provides fairly good
+support for the development of small and medium-size applications.  It
+allows a fair amount of encapsulation, and it supports the object-oriented
+paradigm.  It has its share of quirks and failings, however, notably in
+that it is easy to introduce subtle, hard-to-debug runtime errors.
+
+<h2>EIFFEL</h2>
+<p>
+Eiffel is a statically-typed language that is simple (to use), robust,
+powerful and elegant.  It does not suffer from any of the failings of
+C++ listed above, and it is outstanding in its concern for supporting
+the production of reliable, well-engineered software.  Unfortunately,
+it is not very popular, and the tools that are available for it (notably
+the GUI widget sets) are somewhat immature.  Applications developed using
+Eiffel would probably not be competitive for Medicus' target market, at least
+in terms of GUI look-and-feel.
+
+<h2>SMALLTALK</h2>
+<p>
+Smalltalk is a language initially developed by the Xerox Palo Alto 
+Research Center during the 70's and early 80's.  Smalltalk was one of
+the first languages used to create GUI applications as we know them today,
+and it was the second important &quot;object-oriented&quot; language
+(after Simula).  Smalltalk is available from several vendors on
+many platforms, and offers a number of benefits.
+<p>
+Like all languages, Smalltalk has its disadvantages, too.  Some of them
+are:
+<ul>
+<li>Smalltalk is not cheap.  A fully configured, professional Smalltalk
+    environment would probably cost at least $4K/seat.
+<li>Smalltalk is not as popular as C++.  This leads to a perception
+    that it would be more difficult to recruit competent programmers.
+<li>Smalltalk does not provide as much support as Eiffel or C++ for
+    certain kinds of information hiding.  Specifically, there is not
+    extensive support for limiting the visibility of methods (Eiffel, by
+    way of contrast, provides excellent support for this, and C++ provides
+    fair support through &quot;private&quot; and &quot;protected&quot;
+    member functions).  Some also criticize the lack of multiple
+    inheritance.
+</ul>
+<p>
+Some of the advantages are:
+<ul>
+<li>Programmer productivity.  Some studies have shown that programmer
+    productivity can increase by a factor of 2 to 5 when Smalltalk is
+    used instead of C++.
+<li>Smalltalk is a full-featured language.  Unlike Visual Basic, it is
+    an appropriate language for expressing an entire application.
+<li>Excellent environmental support, including debuggers, browsers,
+    profilers, and configuration-management systems.
+<li>Availability of tools, such as class libraries.  Some of what is
+    available includes full-featured OODBMS's, RDBMS access class libraries,
+    report building tools, client-server connectivity solutions, etc.
+<li>Smalltalk provides &quot;meta-data&quot; about objects.  This can be
+    enormously valuable for building certain kinds of systems.
+</ul>
+<p>
+The claim of &quot;2 to 5&quot; time productivity increase may seem
+incredible, but I personally find it to be fairly believable.  I base this
+on my experience working both with C++-style development environments
+(with their long compilation times) and with environments offering
+a more interactive style of development (for example, the Smalltalk
+environments I've used, and the Symbolics Lisp machine).  Of course,
+no language can remove the inherant complexity of software development
+(&quot;there is no silver bullet&quot;), but Smalltalk (and other systems
+like it) relieve the developer from much of the low-level
+&quot;grunt work,&quot; such as chasing down memory bugs, exploring
+class hierarchies with a text editor, and waiting extended periods 
+of times for rebuilds.  The cumulative effect of this kind of environmental
+support can be of great significance.
+<p>
+Smalltalk environments provide particularly good support for rapid 
+applications development during a prototyping phase.  The highly
+interactive and responsive nature of a Smalltalk system can lead to
+extremely quick production of functional prototypes (or simulations) that
+can serve as the basis for production of the final system.
+<p>
+One claim that is often made against Smalltalk is that it is slow, and that
+systems that are developed with it are overly large.  These criticisms
+may have been valid ten years ago, when Smalltalk technology was not
+as well developed, and when machine resources were very much more
+expensive.  In today's environment, however, Smalltalk programs are very
+competitive in terms of size and execution speed, particularly for typical
+GUI business applications.
+<p>
+In summary, Smalltalk combines the quick turnaround time of Visual Basic
+with the abstraction abilities and support of the object-oriented paradigm
+that C++ has.  It is an excellent choice, particularly during the early
+development phase, but also during production and maintenance.  Generally
+speaking, developers working with Smalltalk can produce applications
+faster and with fewer bugs than developers using C++.
+
+<h3>MY EXPERIENCE WITH THE ABOVE SYSTEMS</h3>
+
+<p>
+Unfortunately, I am not in the position of having written large systems with
+each of the above four environments.  I have, however, had experience with
+many similar systems.
+<p>
+With Visual Basic, there's not much to learn.  I've written a few trivial
+programs to explore it, and I've spoken to people who have written larger
+systems.  To explore some of its limitations, I tried to do something that
+wasn't built in to the language:  I tried to customize the behavior of a
+widget a bit.  I attempted to make a combo box that is like the one one
+gets when searching for help:  one where typing text into a box positions
+the list below to the closest matching entry.  This does not come with
+Visual Basic (although it is probably available as a .VBX add-on from various
+third-party vendors), but I wanted to know if it was possible to do it
+within the Visual Basic language, extending existing components.  It's not.
+Without going into the details, Visual Basic does not give the programmer
+adequate access to the workings of their widgets to use them as a base
+from which to build.
+<p>
+This experience has implications for any serious use of Visual Basic:  It
+suggests that developing a widget that doesn't already exist will be
+challenging, certainly requiring development in C or C++, and probably
+requiring re-implementation of facilities that are present in Visual
+Basic, but not exposed to the developer.  This is in contrast to a system
+like Motif or Galaxy where subclassing is supported (and even
+encouraged).  Another way of saying this is that Visual Basic is not
+easily extensible.
+<p>
+In the C/C++-with-GUI-builder environment, I have had extensive experience,
+both with Galaxy and C++, and with Motif and C.
+<p>
+I have not had much direct experience with Smalltalk.  (Note:  Since the
+writing of this paper, I have used Smalltalk quite a bit more than described
+here!)  In my spare time, I've experimented with two Smalltalk environments,
+and developed a few small programs.  I have, however, had some commercial
+experience with a similar environment:  A Common Lisp GUI workstation.  In
+this project I got a taste for the kinds of productivity gains that can be
+had by proper environmental support for interactive development.
+</BODY>
+
+
+

@@ -1,0 +1,47 @@
+<HEAD>
+<TITLE>C++ Experience</TITLE>
+</HEAD>
+
+<BODY bgcolor="#ffffff">
+<CENTER>
+<H2>C++ Experience</H2>
+</CENTER>
+
+<p>
+I have had extensive commercial experience with C++.  My main experience
+has been working on a medical encoding product at Medicus, between 1/94
+and 6/95.  This application was written in C++ under Solaris (using g++),
+and was then ported to Windows (using Borland C++ 4.02).  We used the
+Galaxy/C GUI Toolkit/application framework.
+<p>
+I can't discuss everything that I did in C++ here, so I'll just describe
+two of the more interesting modules that I developed.  The first was called
+&quot;MDataset&quot;.  This is a system that provides user-extensibility
+of business objects, automatic persistant storage (in an RDBMS), run-time
+symbolic member lookup, and run-time meta-information about business
+objects.  I implemented it using a pre-processor:  Declarations of business
+classes (like Patient or Visit) were written in a seperate file, according
+to a grammar that I developed.  A pre-processor was then run, which generated
+a file that was included in a C++ source file.  This file contained #define
+statements that were included in key places in the declaration and definition
+of the business classes.
+<p>
+In the final product, the dataset module was used pervasively.  Because
+it was so fundamental to many of the basic workings of the product,
+agreement within the team on the interface presented to consumers was
+critical.  We went through a fairly extensive design phase, in which I
+developed prototypes, gave presentations on the proposed API, and produced
+extensive documentation (mostly in the form of Booch class diagrams and
+writeups).  In large part because of the careful job we did at the outset,
+there were very few problems with the actual implementation and integration
+of this module.
+<p>
+Another interesting module that I wrote was a widget that displays 
+hierarchical data.  I developed an abstract base class for the collection
+of hierarchical data, and I and two other people developed three different
+concrete implementations of this abstract class.  This allowed us to use
+the same widget in three different places -- two of them displaying very
+large virtual lists that were stored on disk (lists of ca. 20,000
+elements).
+
+</BODY>

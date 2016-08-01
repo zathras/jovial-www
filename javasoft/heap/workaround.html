@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>
+HAT Workaround for JDK 1.2beta3 on Win32
+</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<FONT SIZE="+1"><STRONG>HAT Workaround for JDK 1.2beta3 on Win32</STRONG></FONT><br><br><br>
+
+<p>
+After JDK 1.2 beta 3 shipped, we discovered that the binary heap profile files
+that are written out under Win32 are corrupt.  This is described in more detail
+in the <a href="http://developer.javasoft.com/developer/bugParade/">JDC
+Bug Parade</a> under bug number 4124489.
+</p>
+<p>
+Fortunately, a workaround is possible!  Just download 
+<a href="workaround.zip">this program</a>.  Before running the 
+program you want to debug, start it in another window with a command
+like this:
+</p>
+<pre>
+	java Win32Workaround dump.hprof 7000
+</pre>
+<p>
+This starts the Win32Workaround program listening on port 7000.  Then, invoke
+the program you want to debug with a command like this:
+</p>
+<pre>
+	java -Xhprof:net=localhost:7000,format=b MyProgram
+</pre>
+<p>
+This instructs the Java<SUP><FONT SIZE=-2>TM</FONT></SUP> Runtime to write
+the heap profile to socket 7000 on the machine &quot;localhost&quot;.  On
+some systems, it might be necessary to use 127.0.0.1 instead of localhost.
+</p>
+<p>
+When the program being debugged terminates, Win32Workaround should also 
+terminate.  It will have written out the .hprof file specified on the
+command line.  You can use this file with hat in the normal way.
+</p>
+<p>
+The Win32 bugs in JDK 1.2beta3 are well-understood, so they should be fixed
+in 1.2beta4.  The Win32Workaround can <strong>only</strong> read the
+malformed output produced by 1.2beta3; if it is run with a runtime
+that produces a correctly-formatted file, it might corrupt it.
+</p>
+<p>
+<font size=+2><strong><a href="workaround.zip">Download
+workaround.zip</a></strong></font>
+</body></html>
+

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//SQ//DTD HTML 2.0 HoTMetaL + extensions//EN">
+<HTML><HEAD><TITLE>Slot Car Class Diagrams</TITLE></HEAD>
+<BODY BGCOLOR="#fffff0"><CENTER><H2>Slot Car Class Diagrams</H2></CENTER>
+<P>The final design came to 15 classes.  The program is driven by an &quot;Animator&quot;
+class.  Animator is responsible for doing double-buffering, and managing
+animation in general.  Since this class is the most intimately tied with the
+specifics of AWT, we did not design it in class:  For the purposes of the
+lecture, Animator was given to us by another department :-)  Animator
+periodically tells its Animatee to move forward in time, then it asks its
+drawables to draw themselves.</P>
+<P>To handle overlapping, Animator simply queries each drawable for its height,
+and it draws the Drawables in order, from lowest to highest.  To get acceptable
+performance, it doesn't re-draw any drawables whose height is &lt;= 0.  Because
+of this, Drawables that canMove() must know how to erase() themselves...  In the
+case of  Car, that's easy:  Draw a car shape that's the color of the track.  How
+animator is written is discussed in more detail in
+<A HREF="doc/jovial.slotCar.animator.Animator.html">Animator's javadoc
+documentation</A>.</P>
+<P>Here's an OMT class diagram showing the overall design:</P>
+<P><IMG SRC="OMTmain.gif" ALT="OMT class diagram" ALIGN="BOTTOM"></P>
+<P>We only implemented one kind of track:  A figure-eight track.  Our design,
+however, leaves open the possibility of making any other kind of track layout. 
+Here's a class diagram that illustrates how the track package works:</P>
+<P><IMG SRC="OMTtrack.gif" ALIGN="BOTTOM"></P>
+<P>The design did change somewhat from the original scenario that was animated
+in class, but it's still close enough that it's instructive to look at that
+scenario.  Here, then, is a high-level object interaction diagram that gives the
+basic flavor of what happens when a frame is requested:</P>
+<P><IMG SRC="OMToid.gif" ALT="OMT Object Interaction Diagram" ALIGN="BOTTOM"></P>
+<center>| <A HREF="index.html">back</A> |</center>
+</BODY></HTML>

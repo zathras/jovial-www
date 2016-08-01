@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE>
+Flower Case Tool
+</TITLE>
+</HEAD>
+<BODY bgcolor="#ffffff">
+
+<h1><font color=red>Caveat</font></h1>
+Flower was an interesting prototype, but I stopped working on it
+in 1995.
+<H2>Flower CASE Tool</H2>
+<p>
+I have a working prototype of a Case tool that I'm calling
+&quot;flower&quot; for now.  It's written in Eiffel, and used
+Tcl/Tk for the GUI layer.  I'm developing it under Linux, but
+it should run under any platform that supports the ISE Eiffel
+environment and Tcl/Tk (Tcl version 7.4, and Tk version 4.0).
+As soon as Tck/Tk are available for Windows/NT, this tool should
+work there.  It should port to TowerEiffel and SiG's compiler
+without much effort.
+<p>
+The prototype is still a little rough around the edges, but it can
+be used to edit diagrams, and it supports loading and saving them.
+It supports a subset of the symbols on a Rumbaugh class diagram
+(Class, Association, Aggretation, and Generalization).
+Here's some of what it doesn't support:
+<UL>
+<LI>Many of the symbols needed for proper Rumbaugh class diagrams, like
+    objects and attributed relationships.
+<LI>Labels or roles on relationships.
+<LI>Free text on diagrams.
+<LI>Printing.  It looks like Tk does most of the work for me, but I haven't
+    implemented this yet.
+<LI>Anything that's not on a Rumbaugh class diagram.
+<LI>Deleting figures from a diagram.
+<LI>Closing or deleting a diagram.
+</UL>
+Also, the code could stand a bit of cleanup and refactoring, and 
+I've made no effort whatsoever to make it fast.  Like I said, 
+it's a prototype!  :-)
+<p>
+Linux binaries are available 
+<a href="flower_bin.tar.gz">here</a>, or perhaps in
+<a href="ftp://ftp.crb.oslo.no/pub/Linux/utils/flower_bin.tar.gz">
+ftp://ftp.crb.oslo.no/pub/Linux/utils/flower_bin.tar.gz</a>.
+The source is available <a href="flower.tar.gz">here</a>.  
+Finally, here is
+<a HREF="flower.sample.gif">a sample diagram</a>.
+
+<H2>I'm interested in feedback!</H2>
+
+<p>
+If you've taken a look at Flower, I'm like your feedback.  I'd like to know:
+<UL>
+<LI>How much interest there is in my making a complete, polished version.
+<LI>Any comment (good or bad) you might have on the design of the tool.
+<LI>Any comments on my Eiffel coding style.  This is the first project
+    I've done in Eiffel, so I'd like to know how I did :-)
+
+</UL>
+<p>
+I can be reached at <A HREF="mailto:billf@jovial.com">billf@jovial.com</A>.
+<BR>
+<BR>
+<BR>
+<BR>
+<center>
+| <a href="../index.html">Home Page</a> |
+</center>
+</BODY>
+</HTML>

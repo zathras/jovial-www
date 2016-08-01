@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//SQ//DTD HTML 2.0 HoTMetaL + extensions//EN">
+<HTML><HEAD><TITLE>Slot Car Madness!</TITLE></HEAD>
+<BODY BGCOLOR="#fffff0"><CENTER><H1>Slot Car Madness!</H1></CENTER>
+<P>Why did I write something as silly as a slot car simulation?  Well, as part
+of an internal training class I taught at a previous company, 
+I needed a simple application
+that had enough structure to motivate OO design discussions, and that was
+fun and intuitive.  I decided to have the class design a simple
+application that animates a simulation of a slot car race.  After the design, I
+asked the students to implement part of it, starting with the Car class.  Of
+course, to do this, I had to write the program myself, and then provide
+everything but the Car class itself.  Anyway, here is the resulting Slot Car
+applet, in all its glory:</P>
+<br>
+<APPLET code="jovial.slotCar.RaceApplet.class" width=550 height=300>
+</applet>
+<H2>A bit about the class...</H2>
+<P>I was teaching an introduction to OO class, internally called &quot;OO101.&quot;
+ In it, I presented some design ideas, concentrating on RDD and OMT.  As a text,
+I used Timothy Budd's &quot;An Introduction to Object-Oriented Programming&quot;
+-- it's perhaps a bit dated, but I like the fact that it concentrates on the
+fundamentals of OO, rather than the details of one particular language.  My
+audience was most interested in C++ and Java, so I supplemented the book with
+some material I wrote on Java.</P>
+<P>In class, I used giant CRC cards, and we came up with a CRC card design for
+a slot car race, with cards that looked something like this:</P>
+<P><IMG ALIGN="BOTTOM" SRC="car.gif" VSPACE="10" HSPACE="20"></P>
+<P>We developed these CRC cards by animating scenarios in the class, with a
+student holding the card for each class.  In the class notes, I eventually
+translated the CRC designs into OMT-esque Object Interaction Diagrams, and class
+diagrams.  Students then implemented part of this design to make a working
+program, and then discussed the design for an extension.  This &quot;lab&quot;
+activity was interspersed with lectures on the fundamentals of OO (polymorphics,
+encapsulation, inheritance, etc.).</P>
+<P>If you'd like to read some more about the slot car design and the program, I
+invite you to:</P>
+<UL><LI>Look at the <a href="class_diag.html">class diagrams</a></LI>
+<LI>Read about the <a href="extension.html">extension to the program</a></LI>
+<LI>Read about <a href="more_extension.html">another potential axis of extension</a></LI>
+<LI>Consult the <a href="doc/packages.html">javadoc documentation</a> (sorry, but the links to Sun's classes lead nowhere)</LI>
+<LI>Download the code in tarred, gzipped format as 
+<a href="slotCar.tar.gz">slotCar.tar.gz</a>, or as
+<a href="slotCar.zip">slotCar.zip</a>.
+</LI></UL>
+<P>Enjoy!</P>
+<center>
+| <a href="../index.html">Home Page</a> |
+</center>
+</BODY></HTML>

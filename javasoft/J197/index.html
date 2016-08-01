@@ -1,0 +1,86 @@
+<html>
+<title>
+    RMI Protocol Handler Demo
+</title>
+<body>
+<center><h1>Custom Protocol Handler</h1></center>
+This package demonstrates how do add a custom protocol handler to
+HotJava.  It's a small demo program that was written for demo
+during a <a href="http://java.sun.com/javaone/track2.html#custom"> 
+talk I gave part of at JavaOne in March, '97.</a>
+<p>
+This program customizes the UI of HotJava (using the properties file),
+and implements a new protocol handler.  This protocol handler used
+RMI to fetch business objects from an object server (as part of a
+multi-tier client/server architecture).  The handler then programatically
+generates HTML (within the browser's process space), which is then rendered
+by HotJava.
+<p>
+<b>Disclamer:</b>  This is code that I hacked together before the
+show.  It's not well documented, and it's not very complete.  It might
+be interesting, though, if you want to get some idea of how to add
+a protocol handler.
+<p>
+You can download the code in either .tar.gz or .zip format:
+<ul>
+    <li><a href="demo.tar.gz">Download demo.tar.gz</a></li>
+    <li><a href="demo.zip">Download demo.zip</a></li>
+</ul>
+<h2>Brief tour through the code</h2>
+<p>
+The client-side application is implemented as a combination of html and 
+Java code.  The Java implements the custom protocol handler.  The server
+side is implemented as an RMI server, written in Java.  Both are
+launched from the bin directory:  RunServer starts the RMI registry, and
+runs the server application.  AutoClub starts the browser, after setting
+various parameters to customize the browser.  (Sorry, I only have Unix
+versions of the launching scripts.  It should be trivial to convert them
+to .bat files, however.)
+<p>
+The .hotjava directory contains HotJava's home directory.  Notably, this
+contains the properties file, which is used to override HotJava's default
+properties.  This is how the UI is customized -- no code!
+<p>
+The html directory simply contains html that's loaded for literal strings
+by the protocol handler.
+<p>
+lib is simply where the properties file is stored (.hotjava actually
+contains a symlink here).
+<p>
+src is where all the Java source code lives.  I didn't seperate the code
+for the client and server sides -- they're just mushed into one directory
+hierarchy.  In a real application, of course, you'd want to seperate the
+two, and have a library of classes that are needed on both sides.  There's
+a (primitive) top-level Makefile in src.
+<p>
+src/autoclub/protocol contains the acutal protocol hander.  This is written
+along the lines described in <a href="">The HotJava user's guide.</a>  This
+handler is the where the distinction between "autoclub://static" 
+(for "static" content off the application server) and "autoclub://rmi"
+(for content calculated from objects fetched by RMI) is made.  RMI
+requests are passed off to RmiURLConnection, part of the
+autoclub.connection package.
+<p>
+src/autoclub/connection contains RmiURLConnection, and the classes used to
+implement it.  RmiURLConnection uses command objects to implement
+individual commands.  A real application would use a hash table to get
+the right command class; I just use an if chain.  The command classes are
+in src/autoclub/connection.
+<p>
+src/autoclub/model contains the business objects that get passed between
+server and client.  In this program, they're very simple data holders.
+These two classes are used both client- and server-side
+<p>
+src/autoclub/rmi contains the RMI server.  The server is completely
+implemented in one interface and one class, for a total of
+121 lines of source (<i>including</i> the wordy copyright notice!).
+I must say that I was quite impressed how easy RMI is to use.
+<p>
+I hope you find this short demo useful.  Please do remember -- this
+is a quick hack I threw together.  When I write real code, it's
+much better than this :-)
+<p>
+Cheers,
+<p>
+<a href="http://java.sun.com/people/billf">Bill Foote</a>
+
